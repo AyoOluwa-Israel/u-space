@@ -1,6 +1,11 @@
 import React from 'react'
 import styled from 'styled-components';
-// import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import PlanetOne from '../images/planet-1.png'
+import PlanetTwo from '../images/planet-2.png'
+import PlanetThree from '../images/planet-3.png'
+import PlanetFour from '../images/planet-4.png'
+
 
 
 const Section = styled.section `
@@ -9,7 +14,6 @@ const Section = styled.section `
   justify-content: center;
   align-items: center;
   background: #131313;
-
 `;
 
 
@@ -21,8 +25,8 @@ const Container = styled.div `
 
   @media screen  and (max-width: 768px){
     grid-template-columns: 1fr;
+    padding: 0;
   }
-
 `
 
 
@@ -43,9 +47,15 @@ p{
   font-size: 4rem;
   line-height: 1.1;
 }
+
+@media screen  and (max-width: 768px){
+    p{
+      font-size: 3rem;
+    }
+  }
 `;
 
-const Button = styled.div `
+const Button = styled(motion.button) `
   padding: 1rem 3rem;
   font-size: 1rem;
   border: 2px solid #fff;
@@ -53,27 +63,137 @@ const Button = styled.div `
   outline: none;
   cursor: pointer;
   background: transparent;
+  color: #fff;
+`;
 
+const Image = styled(motion.img) `
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  width: 250px;
+  height:  250px;
+  @media screen  and (max-width: 468px){
+    width: 100px;
+    height:  100px;
+  }
 
 `;
 
 const ColumnRight = styled.div `
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
 
 
+  ${Image}:nth-child(1){
+    top: 60px;
+    left: 10px;
+  }
+
+  ${Image}:nth-child(2){
+    top: 170px;
+    right: 10px;
+  }
+  
+  ${Image}:nth-child(3){
+    top: 350px;
+    left: 50px;
+  }
+
+  ${Image}:nth-child(4){
+    bottom: 100px;
+    right: 75px;
+  }
+
+  @media screen  and (max-width: 468px){
+    ${Image}:nth-child(1){
+    top: -70px;
+    left: 10px;
+  }
+
+  ${Image}:nth-child(2){
+    top: -200px;
+    right: 10px;
+  }
+  
+  ${Image}:nth-child(3){
+    top: -350px;
+    left: 80px;
+  }
+
+  ${Image}:nth-child(4){
+    bottom: 100px;
+    right: 75px;
+  }
+  }
 
 `;
 
+
+
+
 const Hero = () => {
+  const fadeLeft ={
+    hidden: {opacity:0, x:-100},
+    visible: {opacity:1, x:0}
+  }
+
+
+
   return (
     <Section>
       <Container>
         <ColumnLeft>
-         <h1>Welcome to Space</h1>
-         <p>Journey to the Supernatural</p>
-          <Button>Get Started</Button>
+         <motion.h1
+          initial={{ opacity:0 }}
+          animate={{ opacity:1 }}
+          transition={{ duration: 1}}
+         >Welcome to Space</motion.h1>
+         <motion.p
+          variants={fadeLeft}
+          initial='hidden'
+          animate='visible'
+          transition={{ duration: 1 }}
+         >Journey to the Supernatural</motion.p>
+          <Button
+            whileHover={{ scale: 1.05}}
+            whileTap={{ scale: 0.95, backgroundColor: '#67F6E7', border: 'none', color: '#000'}}
+            initial={{ opacity: 0}}
+            animate={{ opacity: 1 , transition: {duration: 1.5}}}
+          >Get Started</Button>
         </ColumnLeft>
         <ColumnRight>
-          filler
+          <Image src={PlanetOne} alt='planet'
+            whileTap={{scale: 0.9}}
+            drag={true}
+            dragConstraints={{ left: 0, right:250, top: 0, bottom: 50}}
+            initial= {{ opacity: 0, y: -100}}
+            animate={{ opacity: 1, y: 0, transition: {duration: 1}}}
+           />
+          <Image src={PlanetTwo} alt='planet' 
+            whileTap={{scale: 0.6}}
+            drag={true}
+            dragConstraints={{ left: 50, right: 0, top: 0, bottom: 50}}
+            initial= {{ opacity: 0, x: -100}}
+            animate={{ opacity: 1, x: 0, transition: {duration: 1}}}
+
+          />
+          <Image src={PlanetThree} alt='planet' 
+            whileTap={{scale: 0.8}}
+            drag={true}
+            dragConstraints={{ left: 0, right:250, top: 0, bottom: 50}}
+            initial= {{ opacity: 0, x: -100}}
+            animate={{ opacity: 1, x: 0, transition: {duration: 1}}}
+          />
+          <Image src={PlanetFour} alt='planet' 
+            whileTap={{scale: 0.9}}
+            drag={true}
+            dragConstraints={{ left: 0, right:0, top: 0, bottom: 0}}
+            initial= {{ opacity: 0, y: -100}}
+            animate={{ opacity: 1, y: 0, transition: {duration: 1}}}
+          />
         </ColumnRight>
       </Container>
     </Section>
