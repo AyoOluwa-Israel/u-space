@@ -64,6 +64,10 @@ const Button = styled(motion.button) `
   cursor: pointer;
   background: transparent;
   color: #fff;
+
+  @media screen  and (max-width: 468px){
+    padding: 0.5rem 1.5rem;
+  }
 `;
 
 const Image = styled(motion.img) `
